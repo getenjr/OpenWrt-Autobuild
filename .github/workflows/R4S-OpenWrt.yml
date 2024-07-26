@@ -123,7 +123,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: R4S-OpenWrt
-        path: ./artifact/buildinfo/
+        path: ./artifact/buildinfo/armsr/armv8
 
     - name: Upload package
       uses: actions/upload-artifact@v3
