@@ -112,20 +112,8 @@ jobs:
     - name: Print Disk Space After
       run: df -h
     
-    - name: Upload buildinfo
-      uses: actions/upload-artifact@v3
+    - name: Upload Firmwares
+      uses: actions/upload-artifact@main
       with:
         name: R4S-OpenWrt
-        path: ./artifact/buildinfo/armsr/armv8
-
-    - name: Upload package
-      uses: actions/upload-artifact@v3
-      with:
-       name: R4S-OpenWrt
-       path: ./artifact/package/armsr/armv8
-
-    - name: Upload firmware
-      uses: actions/upload-artifact@v3
-      with:
-       name: R4S-OpenWrt
-       path: ./bin/targets/armsr/amrv8
+        path: openwrt/bin/targets/armsr/armv8/
