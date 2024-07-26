@@ -112,8 +112,13 @@ jobs:
     - name: Print Disk Space After
       run: df -h
     
-    - name: Upload Firmwares
-      uses: actions/upload-artifact@main
+    - name: Build OpenWrt root filesystem
+      run: |
+        cd openwrt
+        make -j$(nproc) V=s
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
       with:
-        name: R4S-OpenWrt
-        path: openwrt/bin/targets/armsr/armv8/
+        name: openwrt-rootfs
+        path: openwrt/bin/targets/armsr/armv8
