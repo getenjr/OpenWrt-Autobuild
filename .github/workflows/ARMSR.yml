@@ -107,7 +107,7 @@ jobs:
     - name: Cleaning
       working-directory: ${{ github.workspace }}/openwrt
       run: |
-        cd bin/targets/rockchip/armv8
+        cd bin/targets/armsr/armv8
         /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
     - name: Print Disk Space After
       run: df -h
@@ -115,4 +115,4 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: R4S-OpenWrt
-        path: openwrt/bin/targets/rockchip/armv8/
+        path: openwrt/bin/targets/armsr/armv8/
