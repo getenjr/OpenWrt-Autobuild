@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf `ls | grep -v "squashfs"`
+rm -rf `ls | grep -v "rootfs"`
 ls *rootfs.img.gz | xargs rm -fr
 gzip -d *.gz
 gzip *.img
