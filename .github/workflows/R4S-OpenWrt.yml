@@ -9,8 +9,8 @@ on:
       - 'SEED/R4S/config.seed'
       - 'SEED/extra.cfg'
       - 'SCRIPTS/switch'
-  watch:
-    types: [started]
+  #watch:
+    #types: [started]
 
 jobs:
   build:
@@ -104,15 +104,18 @@ jobs:
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         IGNORE_ERRORS=1 make -j$(($(nproc) + 1)) V=s
+    - name: Create rootfs.tar.gz
+      run: |
+        cd openwrt
+        TARGET_DIR=$(find bin/targets -type d | head -n 1)
+        tar -czvf rootfs.tar.gz -C $TARGET_DIR .
     - name: Cleaning
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         cd bin/targets/armsr/armv8
         /bin/bash ../../../../../SCRIPTS/06_cleaning.sh
-    - name: Print Disk Space After
-      run: df -h
-    - name: Upload Firmwares
-      uses: actions/upload-artifact@main
+    - name: Upload rootfs.tar.gz artifact
+      uses: actions/upload-artifact@v3
       with:
-        name: R4S-OpenWrt
-        path: openwrt/bin/targets/armsr/armv8/
+        name: rootfs
+        path: openwrt/rootfs.tar.gz
