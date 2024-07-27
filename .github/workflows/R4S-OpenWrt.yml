@@ -104,6 +104,22 @@ jobs:
       working-directory: ${{ github.workspace }}/openwrt
       run: |
         IGNORE_ERRORS=1 make -j$(($(nproc) + 1)) V=s
+    - name: Download OpenWrt ImageBuilder
+      run: |
+        wget https://downloads.openwrt.org/releases/XX.XX.XX/targets/YOUR_TARGET/your_imagebuilder.tar.xz -O imagebuilder.tar.xz 
+    - name: Extract ImageBuilder
+      run: |
+        mkdir -p imagebuilder
+        tar -xf imagebuilder.tar.xz -C imagebuilder --strip-components=1
+    - name: Build OpenWrt Image
+      run: |
+        cd imagebuilder
+        make image PROFILE=your_profile PACKAGES="your_packages"
+    - name: Archive the build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: openwrt-image
+        path: imagebuilder/bin/targets/YOUR_TARGET/*
     - name: Create rootfs.tar.gz
       run: |
         cd openwrt
