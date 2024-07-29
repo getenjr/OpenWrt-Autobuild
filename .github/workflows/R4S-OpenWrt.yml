@@ -106,7 +106,7 @@ jobs:
         IGNORE_ERRORS=1 make -j$(($(nproc) + 1)) V=s
     - name: Download OpenWrt ImageBuilder
       run: |
-        wget https://downloads.openwrt.org/releases/XX.XX.XX/targets/YOUR_TARGET/your_imagebuilder.tar.xz -O imagebuilder.tar.xz 
+        wget https://downloads.openwrt.org/releases/XX.XX.XX/targets/armsr/armv8/your_imagebuilder.tar.xz -O imagebuilder.tar.xz 
     - name: Extract ImageBuilder
       run: |
         mkdir -p imagebuilder
@@ -119,7 +119,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: openwrt-image
-        path: imagebuilder/bin/targets/YOUR_TARGET/*
+        path: imagebuilder/bin/targets/armsr/armv8/*
     - name: Create rootfs.tar.gz
       run: |
         cd openwrt
